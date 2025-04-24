@@ -1,0 +1,11 @@
+{
+    "default": true,
+    "line-length": {
+        "line_length": 120
+    },
+    "no-inline-html": {
+        "allowed_elements": [
+            "mark"
+        ]
+    }
+}

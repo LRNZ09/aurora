@@ -8,7 +8,7 @@
 - **Code Blocks**: Styled for readability with a highlight stripe.
 - **Tables and Blockquotes**: Clean and professional formatting.
 - **Slide Variants**: Improved `lead` and `invert` styles for emphasis.
-- **Images and Emoji**: A lone image is centered on its slide, and emoji stay inline at text size.
+- **Images and Emoji**: Images are centered on a line of their own, and emoji stay inline at text size.
 - **Pagination**: Displays current and total slide numbers.
 
 ## Demo

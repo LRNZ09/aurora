@@ -59,8 +59,7 @@ section {
 
   color-scheme: light;
   font-family: var(--font-default);
-  /* Gaia's 35px leaves little room once a slide carries a status line, two
-   * before/after paragraphs and bullets. */
+  /* Gaia's 35px leaves little room on a text-heavy slide. */
   font-size: 33px;
   letter-spacing: 1.05px;
   line-height: 1.25;
@@ -147,10 +146,9 @@ section video[data-marp-video-overlay]::-webkit-media-controls {
 
 /* Images
  *
- * A screenshot sits alone on its slide, so centre it. Marpit renders an image
- * that is alone in a paragraph as an inline <img>, which otherwise hugs the
- * left padding edge while the slide's text does too. Sizing stays in the
- * markdown via Marp's `![w:1160](...)` syntax. */
+ * Centre every image on a line of its own. Marpit renders an image as an inline
+ * <img>, which otherwise hugs the left padding edge like the text. Sizing stays
+ * in the markdown via Marp's `![w:1160](...)` syntax. */
 section img {
   display: block;
   margin-inline: auto;

@@ -168,8 +168,9 @@ section img.emoji {
 /* Marpit wraps a lone image or video in a <p>, which carries marp-core's
  * `margin: 1em 0 0`. At 33px that is a 33px gap the media could be using
  * instead, so drop it to a hairline and let the media bleed into the slide
- * padding on both sides. */
-section p:has(> img:only-child),
+ * padding on both sides. Emoji are images too, so they are left out. CSS can't
+ * see text, so a paragraph of text with one other image matches as well. */
+section p:has(> img:not(.emoji):only-child),
 section p:has(> video:only-child) {
   margin-top: 0.15em;
   margin-inline: -25px;

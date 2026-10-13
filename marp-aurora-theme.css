@@ -59,6 +59,9 @@ section {
 
   color-scheme: light;
   font-family: var(--font-default);
+  /* Gaia's 35px leaves little room once a slide carries a status line, two
+   * before/after paragraphs and bullets. */
+  font-size: 33px;
   letter-spacing: 1.05px;
   line-height: 1.25;
   padding: 50px;

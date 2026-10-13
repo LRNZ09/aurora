@@ -128,3 +128,33 @@ section::after {
   position: absolute;
   font-size: large;
 }
+
+/* Images
+ *
+ * A screenshot sits alone on its slide, so centre it. Marpit renders an image
+ * that is alone in a paragraph as an inline <img>, which otherwise hugs the
+ * left padding edge while the slide's text does too. Sizing stays in the
+ * markdown via Marp's `![w:1160](...)` syntax. */
+section img {
+  display: block;
+  margin-inline: auto;
+}
+
+/* Marp renders each emoji as an <img class="emoji">, which the rule above would
+ * otherwise drop onto a line of its own. Keep it inline, at the size of the text
+ * around it. */
+section img.emoji {
+  display: inline;
+  height: 1em;
+  margin: 0;
+  vertical-align: -0.15em;
+}
+
+/* Marpit wraps a lone image in a <p>, which carries marp-core's
+ * `margin: 1em 0 0`. At 33px that is a 33px gap the image could be using
+ * instead, so drop it to a hairline and let the image bleed into the slide
+ * padding on both sides. */
+section p:has(> img:only-child) {
+  margin-top: 0.15em;
+  margin-inline: -25px;
+}

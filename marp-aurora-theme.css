@@ -133,14 +133,15 @@ section::after {
  *
  * Marpit draws each slide inside a scaled `<svg><foreignObject>`, and native
  * video controls do not work in there: Safari draws them at the wrong scale and
- * clips them, Chromium only shows them while the pointer is moving. So hide them;
- * a click on the video opens a full-window player with working controls
- * (marp-engine.mjs). */
-section video {
+ * clips them, Chromium only shows them while the pointer is moving. So
+ * marp-engine.mjs marks each slide video it takes over, hides its controls, and
+ * opens a full-window player with working controls on click. Without the engine
+ * a video keeps its native controls. */
+section video[data-marp-video-overlay] {
   cursor: zoom-in;
 }
 
-section video::-webkit-media-controls {
+section video[data-marp-video-overlay]::-webkit-media-controls {
   display: none !important;
 }
 

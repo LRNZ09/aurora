@@ -67,7 +67,8 @@ The `.marprc.yml` also loads `marp-engine.mjs`, which handles videos on slides:
 - **Full-window player**: a click on any slide video opens it full-window with working controls, at the same position.
   Esc or a click on the backdrop closes it, and the slide video moves to where the full-window one stopped.
 - **No inline controls**: inside Marp's scaled slides, Safari draws native controls at the wrong scale and Chromium
-  shows them only while the pointer moves, so the theme and the engine hide them.
+  shows them only while the pointer moves, so the theme and the engine hide them. Without the engine, a video keeps
+  its native controls.
 
 ## Extensions
 

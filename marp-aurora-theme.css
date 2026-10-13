@@ -129,6 +129,21 @@ section::after {
   font-size: large;
 }
 
+/* Video
+ *
+ * Marpit draws each slide inside a scaled `<svg><foreignObject>`, and native
+ * video controls do not work in there: Safari draws them at the wrong scale and
+ * clips them, Chromium only shows them while the pointer is moving. So hide them;
+ * a click on the video opens a full-window player with working controls
+ * (marp-engine.mjs). */
+section video {
+  cursor: zoom-in;
+}
+
+section video::-webkit-media-controls {
+  display: none !important;
+}
+
 /* Images
  *
  * A screenshot sits alone on its slide, so centre it. Marpit renders an image
@@ -150,11 +165,12 @@ section img.emoji {
   vertical-align: -0.15em;
 }
 
-/* Marpit wraps a lone image in a <p>, which carries marp-core's
- * `margin: 1em 0 0`. At 33px that is a 33px gap the image could be using
- * instead, so drop it to a hairline and let the image bleed into the slide
+/* Marpit wraps a lone image or video in a <p>, which carries marp-core's
+ * `margin: 1em 0 0`. At 33px that is a 33px gap the media could be using
+ * instead, so drop it to a hairline and let the media bleed into the slide
  * padding on both sides. */
-section p:has(> img:only-child) {
+section p:has(> img:only-child),
+section p:has(> video:only-child) {
   margin-top: 0.15em;
   margin-inline: -25px;
 }

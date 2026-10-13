@@ -14,15 +14,15 @@
 @import "gaia";
 
 /* Font import */
-@import 'https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700&display=swap';
+@import "https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700&display=swap";
 
 /* Variables using Gaia-compatible names */
 :root {
   /* Colors */
-  --color-light: #FFFFFF;     /* White */
-  --color-dark: #000000;      /* Black */
-  --color-primary: #DA291C;   /* Swiss Red */
-  --color-secondary: #F29201; /* Deep Orange */
+  --color-light: #ffffff; /* White */
+  --color-dark: #000000; /* Black */
+  --color-primary: #da291c; /* Swiss Red */
+  --color-secondary: #f29201; /* Deep Orange */
 
   /* Fonts */
   --font-default: "Source Sans Pro", sans-serif;

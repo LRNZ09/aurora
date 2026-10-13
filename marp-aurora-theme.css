@@ -71,7 +71,7 @@ section.lead {
 
   color-scheme: dark;
   background: linear-gradient(
-    45deg,
+    180deg,
     var(--color-primary),
     var(--color-secondary)
   );

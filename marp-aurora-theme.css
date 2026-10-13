@@ -6,23 +6,23 @@
  * @author LRNZ09
  *
  * @auto-scaling true
- * @size 16:9 1280px 720px
- * @size 4:3 960px 720px
+ * @size 16:9 3840px 2160px
+ * @size 4:3 2880px 2160px
  */
 
 /* Theme import */
 @import "gaia";
 
 /* Font import */
-@import 'https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700&display=swap';
+@import "https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700&display=swap";
 
 /* Variables using Gaia-compatible names */
 :root {
   /* Colors */
-  --color-light: #FFFFFF;     /* White */
-  --color-dark: #000000;      /* Black */
-  --color-primary: #DA291C;   /* Swiss Red */
-  --color-secondary: #F29201; /* Deep Orange */
+  --color-light: #ffffff; /* White */
+  --color-dark: #000000; /* Black */
+  --color-primary: #e00f1d; /* Swiss Red */
+  --color-secondary: #f69b01; /* Deep Orange */
 
   /* Fonts */
   --font-default: "Source Sans Pro", sans-serif;
@@ -59,6 +59,8 @@ section {
 
   color-scheme: light;
   font-family: var(--font-default);
+  /* Gaia's 35px leaves little room on a text-heavy slide. */
+  font-size: 33px;
   letter-spacing: 1.05px;
   line-height: 1.25;
   padding: 50px;
@@ -71,7 +73,7 @@ section.lead {
 
   color-scheme: dark;
   background: linear-gradient(
-    45deg,
+    180deg,
     var(--color-primary),
     var(--color-secondary)
   );
@@ -124,4 +126,51 @@ section::after {
   content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
   position: absolute;
   font-size: large;
+}
+
+/* Video
+ *
+ * Marpit draws each slide inside a scaled `<svg><foreignObject>`, and native
+ * video controls do not work in there: Safari draws them at the wrong scale and
+ * clips them, Chromium only shows them while the pointer is moving. So
+ * marp-engine.mjs marks each slide video it takes over, hides its controls, and
+ * opens a full-window player with working controls on click. Without the engine
+ * a video keeps its native controls. */
+section video[data-marp-video-overlay] {
+  cursor: zoom-in;
+}
+
+section video[data-marp-video-overlay]::-webkit-media-controls {
+  display: none !important;
+}
+
+/* Images
+ *
+ * Centre every image on a line of its own. Marpit renders an image as an inline
+ * <img>, which otherwise hugs the left padding edge like the text. Sizing stays
+ * in the markdown via Marp's `![w:1160](...)` syntax. */
+section img {
+  display: block;
+  margin-inline: auto;
+}
+
+/* Marp renders each emoji as an <img class="emoji">, which the rule above would
+ * otherwise drop onto a line of its own. Keep it inline, at the size of the text
+ * around it. */
+section img.emoji {
+  display: inline;
+  height: 1em;
+  margin: 0;
+  vertical-align: -0.15em;
+}
+
+/* Marpit wraps a lone image or video in a <p>, which carries marp-core's
+ * `margin: 1em 0 0`. At 33px that is a 33px gap the media could be using
+ * instead, so drop it to a hairline and let the media bleed into the slide
+ * padding on both sides. Emoji are images too, so they are left out. CSS can't
+ * see text, so a paragraph of text with one other image matches as well. */
+section p:has(> img:not(.emoji):only-child),
+section p:has(> video:only-child) {
+  margin-top: 0.15em;
+  margin-inline: -25px;
 }

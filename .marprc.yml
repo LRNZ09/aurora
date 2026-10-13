@@ -1,0 +1,11 @@
+# Marp CLI config, read when `marp` runs from this folder: decks render with the
+# Aurora theme out of the box.
+themeSet: ./marp-aurora-theme.css
+# Local images in PDF, PPTX and image exports.
+allowLocalFiles: true
+# Raw HTML: marp-engine.mjs injects a script, and Marp strips data-autoplay
+# from <video> without it.
+html: true
+
+# Slide videos: autoplay with data-autoplay, click for a full-window player.
+engine: ./marp-engine.mjs

@@ -41,6 +41,18 @@ Check out the [demo.md](demo.md) file for an example presentation using the Auro
 
 4. Write your slides in Markdown and preview them in VS Code.
 
+## Marp CLI
+
+[Marp CLI](https://github.com/marp-team/marp-cli) reads the `.marprc.yml` in the folder you run it from. The one
+here registers the theme and allows local files, so from this folder:
+
+```sh
+npx @marp-team/marp-cli demo.md        # demo.html
+npx @marp-team/marp-cli --pdf demo.md  # demo.pdf
+```
+
+From another folder, pass it with `--config-file path/to/.marprc.yml`.
+
 ## Extensions
 
 To enhance your Markdown editing experience, install the following extensions:

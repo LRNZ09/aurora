@@ -1,0 +1,5 @@
+# Marp CLI config, read when `marp` runs from this folder: decks render with the
+# Aurora theme out of the box.
+themeSet: ./marp-aurora-theme.css
+# Local images in PDF, PPTX and image exports.
+allowLocalFiles: true

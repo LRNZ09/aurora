@@ -45,8 +45,7 @@ section::before {
 /* Section */
 section {
   /* Paper and ink carry a little of the tint, so every neutral made from them
-   * (stripes, dimmed text, code, tables) belongs to the same family. More ink
-   * tint, or a paler tint, drops Gaia's code colour #9b703f below 4.5:1. */
+   * (stripes, dimmed text, code, tables) belongs to the same family. */
   --color-paper: color-mix(in srgb, var(--color-light) 98%, var(--color-tint));
   --color-ink: color-mix(in srgb, var(--color-dark) 92%, var(--color-tint));
   --color-background: light-dark(var(--color-paper), var(--color-ink));
@@ -106,6 +105,66 @@ code {
 pre {
   border-left: 4px solid var(--color-highlight);
   font-family: var(--font-mono);
+}
+
+/* Lead's crimson is too light for code text on the white chip and block. */
+section.lead code {
+  --color-background: var(--color-ink);
+}
+
+/* Gaia's token colours are made for a black block, but the block is light on
+ * invert and lead slides. Mixing each knob into the code text colour keeps its
+ * hue and gives 7:1 on either block; past 45% the secondary drops below 7:1 on
+ * a light block. */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: color-mix(in srgb, var(--color-primary) 45%, var(--color-background));
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-link,
+.hljs-number,
+.hljs-bullet,
+.hljs-symbol,
+.hljs-literal {
+  color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-background));
+}
+
+.hljs-title,
+.hljs-name,
+.hljs-section,
+.hljs-tag,
+.hljs-attribute,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: color-mix(in srgb, var(--color-tint) 45%, var(--color-background));
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: color-mix(in srgb, var(--color-background) 70%, var(--color-foreground));
+}
+
+.hljs-subst,
+.hljs-params,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--color-background);
+}
+
+/* Diff lines tint the block and keep the code text colour. */
+.hljs-addition,
+.hljs-formula {
+  background-color: color-mix(in srgb, var(--color-tint) 25%, transparent);
+  color: inherit;
+}
+
+.hljs-deletion {
+  background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+  color: inherit;
 }
 
 /* Blockquotes */

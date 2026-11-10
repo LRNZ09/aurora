@@ -14,15 +14,16 @@
 @import "gaia";
 
 /* Font import */
-@import "https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700&display=swap";
+@import "https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700,900&display=swap";
 
 /* Variables using Gaia-compatible names */
 :root {
   /* Colors */
   --color-light: #ffffff; /* White */
   --color-dark: #000000; /* Black */
-  --color-primary: #e00f1d; /* Swiss Red */
-  --color-secondary: #f69b01; /* Deep Orange */
+  --color-primary: #cc0033; /* Vivid Crimson */
+  --color-secondary: #ff9900; /* Vivid Gamboge */
+  --color-tint: #6633ff; /* Beyond Blue */
 
   /* Fonts */
   --font-default: "Source Sans Pro", sans-serif;
@@ -43,8 +44,12 @@ section::before {
 
 /* Section */
 section {
-  --color-background: light-dark(var(--color-light), var(--color-dark));
-  --color-foreground: light-dark(var(--color-dark), var(--color-light));
+  /* Paper and ink carry a little of the tint, so every neutral made from them
+   * (stripes, dimmed text, code, tables) belongs to the same family. */
+  --color-paper: color-mix(in srgb, var(--color-light) 98%, var(--color-tint));
+  --color-ink: color-mix(in srgb, var(--color-dark) 92%, var(--color-tint));
+  --color-background: light-dark(var(--color-paper), var(--color-ink));
+  --color-foreground: light-dark(var(--color-ink), var(--color-paper));
   --color-highlight: light-dark(var(--color-primary), var(--color-secondary));
   --color-background-stripe: color-mix(
     in srgb,
@@ -68,14 +73,24 @@ section {
 
 /* Variant-specific section variables */
 section.lead {
+  /* The gradient leaves no contrast to spare, so text stays pure white and
+   * dimmed text leans to the tint instead of the crimson. */
+  --color-paper: var(--color-light);
   --color-background: var(--color-primary);
   --color-highlight: var(--color-light);
+  --color-dimmed: color-mix(
+    in srgb,
+    var(--color-foreground) 90%,
+    var(--color-tint)
+  );
 
   color-scheme: dark;
+  /* White text needs 3:1 down to the bottom, so the gradient ends on the
+   * secondary pulled toward the primary. */
   background: linear-gradient(
     180deg,
     var(--color-primary),
-    var(--color-secondary)
+    color-mix(in srgb, var(--color-secondary) 60%, var(--color-primary))
   );
 }
 
@@ -94,12 +109,97 @@ pre {
   font-family: var(--font-mono);
 }
 
+/* Lead's crimson is too light for code text on the white chip and block. */
+section.lead code {
+  --color-background: var(--color-ink);
+}
+
+/* Gaia's token colours are made for a black block, but the block is light on
+ * invert and lead slides. Mixing each knob into the code text colour keeps its
+ * hue and gives 7:1 on either block; past 45% the secondary drops below 7:1 on
+ * a light block. */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: color-mix(in srgb, var(--color-primary) 45%, var(--color-background));
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-link,
+.hljs-number,
+.hljs-bullet,
+.hljs-symbol,
+.hljs-literal {
+  color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-background));
+}
+
+.hljs-title,
+.hljs-name,
+.hljs-section,
+.hljs-tag,
+.hljs-attribute,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: color-mix(in srgb, var(--color-tint) 45%, var(--color-background));
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: color-mix(in srgb, var(--color-background) 70%, var(--color-foreground));
+}
+
+.hljs-subst,
+.hljs-params,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--color-background);
+}
+
+/* Diff lines tint the block and keep the code text colour. */
+.hljs-addition,
+.hljs-formula {
+  background-color: color-mix(in srgb, var(--color-tint) 25%, transparent);
+  color: inherit;
+}
+
+.hljs-deletion {
+  background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+  color: inherit;
+}
+
+/* Tables: a link in a header cell keeps its underline and takes the cell's
+ * text colour, since the highlight can match the header background. */
+section thead th a {
+  color: inherit;
+}
+
 /* Blockquotes */
 blockquote {
   padding: 0.75em 1em;
   background-color: var(--color-background-stripe);
   border-left: 4px solid var(--color-highlight);
   font-style: italic;
+}
+
+/* Emphasis
+ *
+ * A mark is a highlighter box and a strong word in a heading goes heavier, so
+ * neither stands apart from the text around it by colour alone. */
+section mark {
+  padding: 0 0.15em;
+  border-radius: 0.15em;
+  background: var(--color-highlight);
+  color: var(--color-background);
+}
+
+section mark a {
+  color: inherit;
+}
+
+section :is(h1, h2, h3, h4, h5, h6) strong {
+  font-weight: 900;
 }
 
 /* Header and footer */
@@ -121,11 +221,28 @@ footer {
   text-transform: uppercase;
 }
 
+/* Inline code would take Gaia's 50px header line height and overlap the slide. */
+header code,
+footer code {
+  line-height: normal;
+}
+
 /* Pagination */
 section::after {
   content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
   position: absolute;
   font-size: large;
+}
+
+/* On lead slides the footer and page number sit on the gradient's light end,
+ * where white text can't reach 4.5:1, so they take the ink instead. */
+section.lead footer {
+  --color-highlight: var(--color-ink);
+  color: var(--color-ink);
+}
+
+section.lead::after {
+  color: var(--color-ink);
 }
 
 /* Images

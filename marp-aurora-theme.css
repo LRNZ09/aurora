@@ -114,6 +114,11 @@ section.lead code {
   --color-background: var(--color-ink);
 }
 
+/* Lead's white highlight would vanish against the white block. */
+section.lead pre {
+  border-left-color: var(--color-primary);
+}
+
 /* Gaia's token colours are made for a black block, but the block is light on
  * invert and lead slides. Mixing each knob into the code text colour keeps its
  * hue and gives 7:1 on either block; past 45% the secondary drops below 7:1 on

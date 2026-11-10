@@ -221,6 +221,12 @@ footer {
   text-transform: uppercase;
 }
 
+/* Inline code would take Gaia's 50px header line height and overlap the slide. */
+header code,
+footer code {
+  line-height: normal;
+}
+
 /* Pagination */
 section::after {
   content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);

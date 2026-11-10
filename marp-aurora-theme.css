@@ -85,10 +85,12 @@ section.lead {
   );
 
   color-scheme: dark;
+  /* White text needs 3:1 down to the bottom, so the gradient ends on the
+   * secondary pulled toward the primary. */
   background: linear-gradient(
     180deg,
     var(--color-primary),
-    var(--color-secondary)
+    color-mix(in srgb, var(--color-secondary) 60%, var(--color-primary))
   );
 }
 
@@ -199,6 +201,17 @@ section::after {
   content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
   position: absolute;
   font-size: large;
+}
+
+/* On lead slides the footer and page number sit on the gradient's light end,
+ * where white text can't reach 4.5:1, so they take the ink instead. */
+section.lead footer {
+  --color-highlight: var(--color-ink);
+  color: var(--color-ink);
+}
+
+section.lead::after {
+  color: var(--color-ink);
 }
 
 /* Images

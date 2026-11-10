@@ -169,6 +169,12 @@ section.lead code {
   color: inherit;
 }
 
+/* Tables: a link in a header cell keeps its underline and takes the cell's
+ * text colour, since the highlight can match the header background. */
+section thead th a {
+  color: inherit;
+}
+
 /* Blockquotes */
 blockquote {
   padding: 0.75em 1em;

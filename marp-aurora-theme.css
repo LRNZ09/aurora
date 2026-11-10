@@ -14,7 +14,7 @@
 @import "gaia";
 
 /* Font import */
-@import "https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700&display=swap";
+@import "https://fonts.bunny.net/css?family=source-code-pro:400,700|source-sans-pro:400,700,900&display=swap";
 
 /* Variables using Gaia-compatible names */
 :root {
@@ -175,6 +175,25 @@ blockquote {
   background-color: var(--color-background-stripe);
   border-left: 4px solid var(--color-highlight);
   font-style: italic;
+}
+
+/* Emphasis
+ *
+ * A mark is a highlighter box and a strong word in a heading goes heavier, so
+ * neither stands apart from the text around it by colour alone. */
+section mark {
+  padding: 0 0.15em;
+  border-radius: 0.15em;
+  background: var(--color-highlight);
+  color: var(--color-background);
+}
+
+section mark a {
+  color: inherit;
+}
+
+section :is(h1, h2, h3, h4, h5, h6) strong {
+  font-weight: 900;
 }
 
 /* Header and footer */

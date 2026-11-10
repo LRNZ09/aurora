@@ -23,6 +23,7 @@
   --color-dark: #000000; /* Black */
   --color-primary: #cc0033; /* Vivid Crimson */
   --color-secondary: #ff9900; /* Vivid Gamboge */
+  --color-tint: #6633ff; /* Beyond Blue */
 
   /* Fonts */
   --font-default: "Source Sans Pro", sans-serif;
@@ -43,8 +44,13 @@ section::before {
 
 /* Section */
 section {
-  --color-background: light-dark(var(--color-light), var(--color-dark));
-  --color-foreground: light-dark(var(--color-dark), var(--color-light));
+  /* Paper and ink carry a little of the tint, so every neutral made from them
+   * (stripes, dimmed text, code, tables) belongs to the same family. More ink
+   * tint, or a paler tint, drops Gaia's code colour #9b703f below 4.5:1. */
+  --color-paper: color-mix(in srgb, var(--color-light) 98%, var(--color-tint));
+  --color-ink: color-mix(in srgb, var(--color-dark) 92%, var(--color-tint));
+  --color-background: light-dark(var(--color-paper), var(--color-ink));
+  --color-foreground: light-dark(var(--color-ink), var(--color-paper));
   --color-highlight: light-dark(var(--color-primary), var(--color-secondary));
   --color-background-stripe: color-mix(
     in srgb,
@@ -68,8 +74,16 @@ section {
 
 /* Variant-specific section variables */
 section.lead {
+  /* The gradient leaves no contrast to spare, so text stays pure white and
+   * dimmed text leans to the tint instead of the crimson. */
+  --color-paper: var(--color-light);
   --color-background: var(--color-primary);
   --color-highlight: var(--color-light);
+  --color-dimmed: color-mix(
+    in srgb,
+    var(--color-foreground) 90%,
+    var(--color-tint)
+  );
 
   color-scheme: dark;
   background: linear-gradient(
